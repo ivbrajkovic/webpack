@@ -1,4 +1,5 @@
-const path = require("path");
+const { resolve } = require("path");
+
 const TerserJSPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -19,7 +20,7 @@ module.exports = ({ NODE_ENV, analyze }) => {
   /**
    * Minimizer
    */
-  const minimizer = devMode
+  const minimizer = /* devMode */ true
     ? []
     : [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})];
 
@@ -69,13 +70,13 @@ module.exports = ({ NODE_ENV, analyze }) => {
     entry: {
       main: "./src/js/index.js",
       fa: "./src/js/fa.js",
-      first: "./src/js/first.js",
-      second: "./src/js/second.js"
+      first: "./src/js/first.jsx",
+      second: "./src/js/second.jsx"
     },
 
     output: {
       filename: devMode ? "[name].bundle.js" : "[name].[contentHash].js",
-      path: path.resolve(__dirname, "dist")
+      path: resolve(__dirname, "dist")
     },
 
     optimization: {
@@ -101,16 +102,22 @@ module.exports = ({ NODE_ENV, analyze }) => {
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
-          use: {
-            loader: "babel-loader"
-          }
-        },
-        {
           test: /\.(html)$/,
           exclude: /node_modules/,
           use: ["html-loader"]
+        },
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          include: resolve(__dirname, "src"),
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                babelrc: true
+              }
+            }
+          ]
         },
         {
           test: /\.(sa|sc|c)ss$/i,
@@ -133,6 +140,15 @@ module.exports = ({ NODE_ENV, analyze }) => {
           }
         }
       ]
+    },
+
+    resolve: {
+      alias: {
+        react: "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat"
+        // Must be below test-utils
+      }
     }
   };
 };

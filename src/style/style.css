@@ -1,0 +1,169 @@
+/* Reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Custom props */
+
+:root {
+  --ff-primary: "Source Sans Pro", sans-serif;
+  --ff-secondary: "Source Code Pro", monospace;
+
+  --fw-regular: 300;
+  --fw-bold: 900;
+
+  --clr-light: #fff;
+  --clr-dark: #303030;
+  --clr-accent: #16e0bd;
+
+  --fs-h1: 3rem;
+  --fs-h1: 2.25rem;
+  --fs-h1: 1.25rem;
+  --fs-body: 1rem;
+
+  --nav-padding: 1rem;
+  --main-padding-top: calc(2.3rem + var(--nav-padding) * 2);
+}
+
+@media (min-width: 800px) {
+  :root {
+    --fs-h1: 4.5rem;
+    --fs-h2: 3.75rem;
+    --fs-h3: 1.5rem;
+    --fs-body: 1.125rem;
+  }
+}
+
+/* General styles */
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: var(--clr-light);
+  font-family: var(--ff-primary);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility; */
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Typography */
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+}
+
+h1 {
+  font-size: var(--fs-h2);
+}
+
+h1 {
+  font-size: var(--fs-h3);
+}
+
+main {
+  margin-top: var(--main-padding-top);
+}
+
+/* Header */
+
+.nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: var(--nav-padding);
+}
+
+.nav__logo {
+  flex-grow: 1;
+  font-size: var(--fs-h3);
+}
+
+.nav__togle {
+  /* display: inline-block; */
+  padding: 0.5em 0.25em;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  /* position: absolute;
+  right: 0; */
+}
+
+.hamburger {
+  position: relative;
+  display: block;
+  /* display: none; */
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  height: 3px;
+  width: 2em;
+  background-color: var(--clr-dark);
+  border-radius: 1em;
+  transition: transform 250ms ease-in-out;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.hamburger::before {
+  top: 6px;
+}
+
+.hamburger::after {
+  bottom: 6px;
+}
+
+.nav__list {
+  margin: 0;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+
+.nav__item {
+  margin-right: 2em;
+}
+
+.nav__item:last-of-type {
+  margin-right: 0;
+}
+
+.nav__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.autoplacement-example {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-gap: 20px;
+}

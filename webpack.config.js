@@ -8,23 +8,25 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
-module.exports = ({ NODE_ENV, analyze, test }) => {
-  console.log("Test mode:", test || false);
-  console.log("Boundle analyze:", analyze || false);
+module.exports = env => {
+  const { NODE_ENV = "development", analyze = false, devtools = "eval" } =
+    env || {};
 
   /**
    * Envoirement mode
    */
-  const devMode = test || NODE_ENV === "development";
-  console.log("Development mode:", devMode);
+  const devMode = NODE_ENV === "development";
+
+  console.log("Mode:", NODE_ENV);
+  console.log("Devtools:", (devMode && devtools) || false);
+  console.log("Boundle analyze:", analyze);
 
   /**
    * Minimizer
    */
-  const minimizer =
-    devMode || test
-      ? []
-      : [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})];
+  const minimizer = devMode
+    ? []
+    : [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})];
 
   /**
    * Plugins
@@ -81,7 +83,7 @@ module.exports = ({ NODE_ENV, analyze, test }) => {
       path: resolve(__dirname, "dist")
     },
 
-    devtool: !test,
+    devtool: (devMode && devtools) || false,
 
     optimization: {
       usedExports: true,
@@ -126,7 +128,7 @@ module.exports = ({ NODE_ENV, analyze, test }) => {
         },
         {
           test: /\.(sa|sc|c)ss$/i,
-          exclude: /node_modules/,
+          // exclude: /node_modules/,
           use: [
             devMode ? "style-loader" : MiniCssExtractPlugin.loader,
             "css-loader",

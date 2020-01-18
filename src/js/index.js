@@ -1,6 +1,19 @@
 import "../style/style.css";
-
+import "../style/swiper.min.css";
 import { cube, square } from "./math.js";
+
+// Import Swiper and modules
+import { Swiper, Navigation } from "swiper/js/swiper.esm.js";
+
+// Install modules
+Swiper.use([Navigation]);
+var mySwiper = new Swiper(".swiper-container", {
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev"
+  }
+});
+console.log("TCL: mySwiper", mySwiper);
 
 // square(2);
 // square(4);

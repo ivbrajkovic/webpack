@@ -1,4 +1,6 @@
-/* Reset */
+/*=============================================
+=            Reset            =
+=============================================*/
 
 *,
 *::before,
@@ -6,7 +8,11 @@
   box-sizing: border-box;
 }
 
-/* Custom props */
+/*=====  End of Reset  ======*/
+
+/*=============================================
+ =            Custom props            =
+ =============================================*/
 
 :root {
   --ff-primary: "Source Sans Pro", sans-serif;
@@ -37,7 +43,11 @@
   }
 }
 
-/* General styles */
+/*=====  End of Custom props  ======*/
+
+/*=============================================
+=            Section General styles            =
+=============================================*/
 
 body {
   margin: 0;
@@ -80,6 +90,8 @@ h1 {
 main {
   margin-top: var(--main-padding-top);
 }
+
+/*=====  End of Section General styles  ======*/
 
 /* Header */
 
@@ -161,9 +173,14 @@ main {
   text-decoration: none;
 }
 
-.autoplacement-example {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  grid-gap: 20px;
+.swiper-container {
+  width: 600px;
+  height: 300px;
+}
+
+.content-center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

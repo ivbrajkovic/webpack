@@ -9,8 +9,8 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --env.NODE_ENV=development --config webpack.config.js --open",
+    "dev": "webpack --config webpack.config.js",
     "build": "webpack --env.NODE_ENV=production --config webpack.config.js",
-    "test": "webpack --env.NODE_ENV=production --env.test --config webpack.config.js",
     "analyze": "webpack --env.NODE_ENV=production --env.analyze --config webpack.config.js"
   },
   "keywords": [],
@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
-    "preact": "^10.2.1"
+    "preact": "^10.2.1",
+    "swiper": "^5.3.0"
   }
 }

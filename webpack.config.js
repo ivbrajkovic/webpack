@@ -8,21 +8,23 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
-module.exports = ({ NODE_ENV, analyze }) => {
+module.exports = ({ NODE_ENV, analyze, test }) => {
+  console.log("Test mode:", test || false);
   console.log("Boundle analyze:", analyze || false);
 
   /**
    * Envoirement mode
    */
-  const devMode = NODE_ENV === "development";
+  const devMode = test || NODE_ENV === "development";
   console.log("Development mode:", devMode);
 
   /**
    * Minimizer
    */
-  const minimizer = /* devMode */ true
-    ? []
-    : [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})];
+  const minimizer =
+    devMode || test
+      ? []
+      : [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})];
 
   /**
    * Plugins
@@ -68,10 +70,10 @@ module.exports = ({ NODE_ENV, analyze }) => {
     mode: devMode ? "development" : "production",
 
     entry: {
-      main: "./src/js/index.js",
-      fa: "./src/js/fa.js",
-      first: "./src/js/first.jsx",
-      second: "./src/js/second.jsx"
+      main: "./src/js/index.js"
+      // fa: "./src/js/fa.js",
+      // first: "./src/js/first.jsx",
+      // second: "./src/js/second.jsx"
     },
 
     output: {
@@ -79,7 +81,10 @@ module.exports = ({ NODE_ENV, analyze }) => {
       path: resolve(__dirname, "dist")
     },
 
+    devtool: !test,
+
     optimization: {
+      usedExports: true,
       minimizer: minimizer,
       splitChunks: {
         cacheGroups: {

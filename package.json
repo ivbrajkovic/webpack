@@ -1,11 +1,16 @@
 {
   "name": "webpack",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "version": "1.0.0",
   "private": true,
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --env.NODE_ENV=development --config webpack.config.js --open",
     "build": "webpack --env.NODE_ENV=production --config webpack.config.js",
+    "test": "webpack --env.NODE_ENV=production --env.test --config webpack.config.js",
     "analyze": "webpack --env.NODE_ENV=production --env.analyze --config webpack.config.js"
   },
   "keywords": [],
